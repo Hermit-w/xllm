@@ -465,6 +465,7 @@ void NpuDeepseekV2DecoderLayerImpl::initialize_attention_parameters(
   } else {
     param.enableMlaPreprocess = false;
   }
+  param.enableCustomizeMla = FLAGS_enable_customize_mla_kernel;
 
   param.enableFA3 = false;           // TODO
   param.isNzCache = false;           // TODO

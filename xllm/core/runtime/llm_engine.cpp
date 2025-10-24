@@ -657,7 +657,18 @@ ForwardOutput LLMEngine::step(std::vector<Batch>& batch) {
       << "The processed raw forward inputs size "
       << batched_raw_forward_inputs.size() << " is not equal to dp size "
       << dp_size_ << ".";
-
+  static bool set_enable_mla = FLAGS_enable_customize_mla_kernel;
+  if (set_enable_mla) {
+    FLAGS_enable_customize_mla_kernel = std::all_of(
+        batched_raw_forward_inputs.begin(),
+        batched_raw_forward_inputs.end(),
+        [](const std::vector<RawForwardInput>& inputs) {
+          return std::all_of(
+              inputs.begin(), inputs.end(), [](const RawForwardInput& input) {
+                return input.flatten_tokens_vec.size() < 230;
+              });
+        });
+  }
   std::vector<folly::SemiFuture<std::optional<RawForwardOutput>>> futures;
   futures.reserve(worker_clients_num_);
 

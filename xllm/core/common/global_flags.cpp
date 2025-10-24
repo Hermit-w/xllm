@@ -74,6 +74,8 @@ DEFINE_bool(enable_mla,
             false,
             "Whether to enable multi-head latent attention.");
 
+DEFINE_bool(enable_customize_mla_kernel, false, "enable customize mla kernel");
+
 DEFINE_bool(enable_acl_graph,
             false,
             "Whether to enable ACL graph execution for decode phase.");

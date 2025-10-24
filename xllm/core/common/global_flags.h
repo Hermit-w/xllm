@@ -129,6 +129,8 @@ DECLARE_int32(max_connect_count);
 
 DECLARE_int32(sleep_time_second);
 
+DECLARE_bool(enable_customize_mla_kernel);
+
 DECLARE_bool(enable_atb_comm_multiprocess);
 
 DECLARE_string(tool_call_parser);
